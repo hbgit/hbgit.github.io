@@ -1,21 +1,21 @@
-title: John Smith
-description: My Personal Blog
-author: John Smith
-logo: /hcz-jekyll-blog/static/img/avatar.png
-github: https://github.com/codeasashu
-about: Freelance developer
+title: Herbert Rocha
+description: My Personal Web Site
+author: Herbert Rocha
+logo: ./static/img/avatar.jpg
+github: https://github.com/hbgit
+about: Research Professor
 
 baseurl: ""
 url: ""
 
 allowsearch: true
 
-disqus_shortname: aboutashu
-google_analytics: UA-72862926-1
+disqus_shortname: Herbert
+google_analytics: 
 
 share:
-  twitter_username: \#
-  fb_appid: 000000000000
+  twitter_username: \@herberthb12
+  fb_appid: herbert.rocha.54
 
 
 enableTags: true
