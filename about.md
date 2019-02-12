@@ -4,8 +4,23 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+Hello, I am `Herbert Oliveira Rocha`.
 
-You can find the source code for this Jekyll theme at: [github.com/ashutosh2k12/hcz-jekyll-blog](https://github.com/ashutosh2k12/hcz-jekyll-blog)
+Currently, I am a professor in the Departament of Computer Science at 
+[Federal University of Roraima][ufrrdcc]. My research focuses on the development of automated verification and software testing techniques for software systems. In particular, I am interested in the verification and testing of the critical embedded systems. 
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+INTERESTS IN COMPUTING:
+
+- Software Quality 
+- Verification and Validation of Software
+- Testing Software
+- Model Checking 
+- Embedded Systems 
+- Operating Systems 
+- Open-Source
+- Programming Languages
+- Regular Expressions
+- Web Systems, and 
+- Design and Art
+
+[ufrrdcc]: http://ufrr.br/dcc

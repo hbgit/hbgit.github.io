@@ -1,7 +1,7 @@
 title: Herbert Rocha
 description: My Personal Web Site
 author: Herbert Rocha
-logo: ./static/img/avatar.jpg
+logo: /static/img/avatar.jpg
 github: https://github.com/hbgit
 about: Research Professor
 
