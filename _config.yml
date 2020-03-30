@@ -5,12 +5,12 @@ logo: /static/img/avatar.jpg
 github: https://github.com/hbgit
 about: Research Professor
 
-baseurl: ""
+baseurl: "https://hbgit.github.io/"
 url: ""
 
 allowsearch: true
 
-disqus_shortname: Herbert
+disqus_shortname: hbgit
 google_analytics: 
 
 share:
