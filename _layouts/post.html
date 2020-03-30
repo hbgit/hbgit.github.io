@@ -44,10 +44,11 @@ layout: default
         <a class="next pull-right" href="{{ site.url }}{{ page.next.url }}">{{ page.next.title }} &raquo;</a>
     {% endif %}
 
-    Test: </br>
+    </br>
+    Test-A: </br>
     {{ site.url }}{{ page.url }} </br>
-    {{ site.baseurl }} </br>
-    {{ post.url }} </br>
+    {{ site.baseurl }} </br>    
+    {{ site.baseurl }}{{ page.url }} </br>
     </div>
 
 
@@ -55,7 +56,7 @@ layout: default
         <div id="disqus_thread"></div>
         <script type="text/javascript">                   
             var disqus_config = function () {
-                    this.page.url = "{{ site.site.baseurl }}{{ page.url }}";
+                    this.page.url = "{{ site.baseurl }}{{ page.url }}";
                     this.page.identifier = "{{ site.site.baseurl }}{{ page.url }}";
             };
 
