@@ -49,19 +49,20 @@ layout: default
     <div class="disqus-comments">
         <div id="disqus_thread"></div>
         <script type="text/javascript">
-            /* <![CDATA[ */
 
-            var disqus_shortname = "{{ site.disqus_shortname }}";
-            var disqus_identifier = "{{ site.url }}_{{ page.title }}";
-            var disqus_title = "{{ page.title }}";
+            var disqus_config = function () {
+                    this.page.url = "{{ site.url }}{{ page.url }}";
+                    this.page.identifier = "{{ site.url }}{{ page.url }}";
+            ;            
 
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function() {
                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//' + disqus_shortname + '/embed.js';
+                dsq.src = 'https://{{ site.disqus_shortname }}/embed.js';
+                dsq.setAttribute('data-timestamp', +new Date());
                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
             })();
-        /* ]]> */
+        
         </script>
         <noscript>Please enable JavaScript to view the 
             <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
