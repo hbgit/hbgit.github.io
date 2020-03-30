@@ -48,9 +48,7 @@ layout: default
 
     <div class="disqus-comments">
         <div id="disqus_thread"></div>
-        <script type="text/javascript">            
-            /* <![CDATA[ */
-
+        <script type="text/javascript">                   
             var disqus_config = function () {
                     this.page.url = "{{ site.url }}{{ page.url }}";
                     this.page.identifier = "{{ site.url }}{{ page.url }}";
@@ -58,12 +56,11 @@ layout: default
 
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = 'https://{{ site.disqus_shortname }}/embed.js';
-                dsq.setAttribute('data-timestamp', +new Date());
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        /* ]]> */
+                var d = document, s = d.createElement('script');
+                s.src = 'https://hbgit.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);                
+            })();        
         </script>
         <noscript>Please enable JavaScript to view the 
             <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
