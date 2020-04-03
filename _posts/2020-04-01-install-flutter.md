@@ -123,7 +123,7 @@ foo@bar:development/$ sudo update-alternatives --config javac
 
 - One easy way to install the Android SDK is to install Android Studio, see https://developer.android.com/studio , but in this post, our focus is to adopt the Visual Code to write our Flutter APPs.
 
-- Therefore, we choose to install only the Android SDK, this way you can go to https://developer.android.com/studio in the section Command line tools only and get the Linux version. **Unfurtanaly**, we have noted some issues with the latest versions. This way, adopt a specific version of the Android SDK from Google repo:
+- Therefore, we choose to install only the Android SDK, this way you can go to https://developer.android.com/studio in the section Command line tools only and get the Linux version. **Unfortunately**, we have noted some issues with the latest versions. This way, adopt a specific version of the Android SDK from Google repo:
 
 ```console
 # NOTE: at this moment, we are inside the development directory
