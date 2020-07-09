@@ -69,33 +69,40 @@ Submodule path 'dependencies/jvm-parser': checked out '5368a84117dc28e0002003e8d
 ```
 
 - Update the Haskell packages and build the Crucible packages.
+
 ```console
 root@a3cbc72a4874:/# cabal update
 root@a3cbc72a4874:/# cabal new-configure
 ...
-- crux-llvm-0.3.2 (test:crux-llvm-test) (first run)
-- crux-llvm-0.3.2 (exe:crux-llvm-svcomp) (first run)
-- crux-llvm-0.3.2 (exe:crux-llvm) (first run)
-- crucible-mc-0.1.0.0 (exe:crucible-mc) (first run)
-- cryptol-verifier-0.1 (exe:css) (first run)
-- cryptol-verifier-0.1 (test:cryptol-verifier-tc-test) (first run)
-- crucible-server-0.1 (first run)
+crux-llvm-0.3.2 (test:crux-llvm-test) (first run)
+crux-llvm-0.3.2 (exe:crux-llvm-svcomp) (first run)
+crux-llvm-0.3.2 (exe:crux-llvm) (first run)
+crucible-mc-0.1.0.0 (exe:crucible-mc) (first run)
+cryptol-verifier-0.1 (exe:css) (first run)
+cryptol-verifier-0.1 (test:cryptol-verifier-tc-test) (first run)
+crucible-server-0.1 (first run)
+
 root@a3cbc72a4874:/# cabal new-build crucible
 ...
 [50 of 50] Compiling Lang.Crucible.Vector ( src/Lang/Crucible/Vector.hs, /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crucible-0.5/build/Lang/Crucible/Vector.o )
+
 root@a3cbc72a4874:/# cabal new-build crucible-llvm
 ...
 [44 of 44] Compiling Lang.Crucible.LLVM.Ctors ( src/Lang/Crucible/LLVM/Ctors.hs, /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crucible-llvm-0.3/build/Lang/Crucible/LLVM/Ctors.o )
+
 root@a3cbc72a4874:/# cabal new-build crucible-saw
 ...
 [1 of 1] Compiling Lang.Crucible.Backend.SAWCore ( src/Lang/Crucible/Backend/SAWCore.hs, /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crucible-saw-0.1/build/Lang/Crucible/Backend/SAWCore.o )
+
 root@a3cbc72a4874:/# cabal new-build crucible-syntax
 ...
 [1 of 1] Compiling Main             ( crucible-syntax/Main.hs, /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crucible-syntax-0.1/x/crucibler/build/crucibler/crucibler-tmp/Main.o )
 Linking /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crucible-syntax-0.1/x/crucibler/build/crucibler/crucibler ...
+
 root@a3cbc72a4874:/# cabal new-build crux
 ...
 [18 of 18] Compiling Crux             ( src/Crux.hs, /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-0.1/build/Crux.o )
+
 root@a3cbc72a4874:/# cabal new-build crux-llvm
 ...
 [1 of 1] Compiling Main             ( svcomp/Main.hs, /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm-svcomp/build/crux-llvm-svcomp/crux-llvm-svcomp-tmp/Main.o )
