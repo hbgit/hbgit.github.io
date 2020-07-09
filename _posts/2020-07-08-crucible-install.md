@@ -3,7 +3,7 @@ layout: post
 title:  "Install Crucible"
 date:   2020-07-08 11:48:00
 categories: VVT
-published: false
+published: true
 comments: true
 ---
 
@@ -31,7 +31,7 @@ b6b53be908de: Pull complete
 root@a3cbc72a4874:/#
 ```
 
-- Install Crucible and fetching the dependencies. In this step we'll install tools, such as ghc (Haskell compiler) v8.6.5, Boost library (libboost-all-dev), Number Theory Library (libntl-dev) development files, and GNU Linear Programming Kit. Let's go to the commands:
+- Install Crucible and fetching the dependencies. In this step, we'll install tools, such as ghc (Haskell compiler) v8.6.5, Boost library (libboost-all-dev), Number Theory Library (libntl-dev) development files, and GNU Linear Programming Kit. Let's go to the commands: 
 
 ```console
 root@a3cbc72a4874:/# apt update
@@ -52,7 +52,7 @@ root@a3cbc72a4874:/# git clone https://github.com/GaloisInc/crucible.git
 root@a3cbc72a4874:/# cd crucible
 ```
 
-- From the Crucible repository we'll adopt the following Haskell packages: crucible, crucible-llvm, crucible-saw, crucible-syntax, and crux. Additionally, the crux-llvm library/executable package that is a standalone frontend for executing C and C++ programs in the crucible symbolic simulator. The front-end invokes clang to produce LLVM bitcode, and runs the resulting programs using the crucible-llvm language frontend.
+- From the Crucible repository, we'll get the following Haskell packages: crucible, crucible-llvm, crucible-saw, crucible-syntax, and crux. Additionally, the crux-llvm library/executable package that is a standalone frontend for executing C and C++ programs in the crucible symbolic simulator. The front-end invokes clang to produce LLVM bitcode and runs the resulting programs using the crucible-llvm language frontend.
 
 - Let's build the Crucible packages, starting to fetch all the latest git versions of immediate dependencies of libraries in this repository:
 
@@ -68,7 +68,7 @@ Submodule path 'dependencies/cryptol-verifier': checked out 'f33f4f234da9f48664f
 Submodule path 'dependencies/jvm-parser': checked out '5368a84117dc28e0002003e8d8a491dd8756b421'
 ```
 
-- Update the haskell packages and build the Crucible packages.
+- Update the Haskell packages and build the Crucible packages.
 ```console
 root@a3cbc72a4874:/# cabal update
 root@a3cbc72a4874:/# cabal new-configure
@@ -125,7 +125,7 @@ root@a3cbc72a4874:/home/crucible# ln -s /usr/bin/llvm-link-8 /usr/bin/llvm-link
 
 ## Install a Solver
 
-In this case we'll install Yices as smt solver. Futher details at https://yices.csl.sri.com/
+In this case, we'll install Yices as an SMT solver. Further details at https://yices.csl.sri.com/
 
 
 ```console
@@ -136,18 +136,16 @@ root@a3cbc72a4874:/home/crucible# apt-get install yices2 -y
 
 ## Testing Crucible LLVM
 
-In this step we'll adopt a following code using SV-COMP rules to check a given code:
+In this step we'll adopt the following code using SV-COMP rules to check a given code:
 
 - Setting up:
 ```console
 root@a3cbc72a4874:/home/crucible# cd dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/
 root@a3cbc72a4874:/home/crucible# cp -r /home/crucible/crux-llvm/c-src .
-root@a3cbc72a4874:/home/crucible# ./crux-llvm example1.c
-root@a3cbc72a4874:/home/crucible# 
 ```
 
-
 ```C
+// test.c code
 #include <stdint.h>
 #include <crucible.h>
 
@@ -164,6 +162,84 @@ int main() {
 }
 
 ```
+- Running:
+```console
+root@a3cbc72a4874:/home/crucible# ./crux-llvm test.c -x
+...
+[CLANG] clang "-c" "-g" "-emit-llvm" "-O1" "-I" "." "-I" "c-src/includes" "-o" "test.bc" "test.c"
+[Crux] Simulating function "main"
+[Crux] Attempting to prove verification conditions.
+[Crux] Goal status:
+[Crux]   Total: 1
+[Crux]   Proved: 0
+[Crux]   Disproved: 1
+[Crux]   Incomplete: 0
+[Crux]   Unknown: 0
+[Crux] Overall status: Invalid.
+```
+
+- **NOTE**: The crucible.h API allows for better explanations by a) allowing user-specified names for non-deterministic variables, and b) ensuring that the conditions used in assertions are directly available and not obscured by a conditional wrapper around an error function. It's possible you need to fix the header path, e.g., replace <crucible.h> by "crucible.h".
+
+## Testing Crucible LLVM using SV-COMP definitions
+
+- The following example.c code has the __VERIFIER_ERROR() function the points an error location in the code. This way, the goal of the code verification is found values to reach code location.
+
+```C
+extern void __VERIFIER_error() __attribute__((__noreturn__));
+extern int __VERIFIER_nondet_int(void);
+
+int main(){
+    
+  int a = __VERIFIER_nondet_int();
+  int b = __VERIFIER_nondet_int();
+
+  if( (a+b) > 42 ){
+      __VERIFIER_error();
+  }
+  
+  return 0;
+}
+```
+- Running:
+```console
+root@a3cbc72a4874:/home/crucible# ./crux-llvm example.c -x
+[CLANG] clang "-c" "-g" "-emit-llvm" "-O1" "-I" "." "-I" "c-src/includes" "-o" "example.bc" "example.c"
+[Crux] Simulating function "main"
+[Crux] Attempting to prove verification conditions.
+[Crux] Goal status:
+[Crux]   Total: 2
+[Crux]   Proved: 0
+[Crux]   Disproved: 2
+[Crux]   Incomplete: 0
+[Crux]   Unknown: 0
+[Crux] Overall status: Invalid.
+```
+
+- **NOTE:** In this code verification Crucible set to verification condition: overflow, and reach check. Now let's check the report:
+```console
+root@a3cbc72a4874:/home/crucible# cat results/example/report.js
+var goals = [{"status": "fail","counter-example": [ {"name": "X","loc": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "6","col": "13"},"val": "BV 2147483648","bits": "32"}
+, {"name": "X","loc": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "7","col": "13"},"val": "BV 2147483648","bits": "32"}
+]
+,"goal": "LLVM Poison value created\nSigned addition caused wrapping even though the `nsw` flag was set","location": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "9","col": "11"},"assumptions": [],"trivial": false,"path": []},{"status": "fail","counter-example": [ {"name": "X","loc": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "6","col": "13"},"val": "BV 0","bits": "32"}
+, {"name": "X","loc": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "7","col": "13"},"val": "BV 1073741824","bits": "32"}
+]
+,"goal": "__VERIFIER_error","location": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "10","col": "9"},"assumptions": [{"loc": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "9","col": "9"}}],"trivial": false,"path": [{"loop": [1],"loc": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "9","col": "9"}}]}]
+```
+
+- Let's focus on the values generated to reach the line:
+  - "line": "6","col": "13"},"val": "BV 0"
+  - "line": "7","col": "13"},"val": "BV 1073741824"
+
+Aiming to get a better way to visualize you should see the files at path results/example/ 
+
+- Goal 1 to check, possible overflow
+
+![Result goal 1](/assets/crucible_1_result.png "Result goal 1")
+
+- Goal 2 to check, reach check
+
+![Result goal 2](/assets/crucible_2_result.png "Result goal 2")
 
 [crucible-git]: https://github.com/GaloisInc/crucible
 [install_docker]:[https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04]
