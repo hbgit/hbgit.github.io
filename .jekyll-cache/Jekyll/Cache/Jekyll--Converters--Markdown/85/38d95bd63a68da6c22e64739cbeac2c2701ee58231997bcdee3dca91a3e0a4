@@ -1,0 +1,277 @@
+I"�=<h1 id="installing-flutter-to-write-apps-on-linux">Installing Flutter to write APPs on Linux</h1>
+
+<p><img src="/assets/flutter_logo.png" alt="Flutter logo" title="Flutter logo" /></p>
+
+<h2 id="do-you-know-how-to-use-flutter-on-linux">Do you know how to use flutter on Linux?</h2>
+
+<ul>
+  <li>
+    <p>If your answer is I don’t, no problem. More details about Flutter at https://flutter.dev</p>
+  </li>
+  <li>
+    <p>In the future, I’ll present some examples, but for now, let’s set up our devel environment on Linux</p>
+  </li>
+  <li>
+    <p>In this post we’ll learn how to install all basic requirements to write your APPs using Flutter on Linux, this include:</p>
+    <ul>
+      <li>Install Flutter SDK</li>
+      <li>Install Android SDK</li>
+      <li>How to use sdkmanager tool to install Android platforms-tools</li>
+      <li>Setting up Visual Code to Flutter and Dart that is the programming language</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="step-0-install-flutter">STEP 0: Install Flutter</h2>
+
+<ul>
+  <li>
+    <p>Install flutter from the website, in this case, go to https://flutter.dev/docs/get-started/install/linux , there you find all system requirements, e.g., disk space 600 MB, but personally I rather 2 GB, this because of the additional libraries and IDE. Thus, let’s start.</p>
+  </li>
+  <li>
+    <p>Create a directory to save the files to install Flutter:</p>
+  </li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:~$</span><span class="w"> </span><span class="nb">mkdir</span> ~/development
+<span class="gp">foo@bar:~$</span><span class="w"> </span><span class="nb">cd</span> ~/development
+<span class="gp">foo@bar:development/$</span><span class="w"> </span>wget https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_v1.12.13+hotfix.7-stable.tar.xz 
+<span class="gp">foo@bar:development/$</span><span class="w"> </span><span class="nb">tar </span>xf flutter_linux_v1.12.13+hotfix.9-stable.tar.xz
+<span class="gp">#</span><span class="w"> </span>In this point we have
+<span class="gp">foo@bar:development/$</span><span class="w"> </span><span class="nb">ls</span>
+<span class="go">flutter
+</span></code></pre></div></div>
+
+<h3 id="update-your-path">Update your path</h3>
+
+<p>You can update your PATH variable for the current session at the command line, but You’ll probably want to update this variable permanently, so you can run flutter commands in any terminal session, this way try:</p>
+
+<ul>
+  <li>Determine the directory where you placed the Flutter SDK
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:development/$</span><span class="w"> </span><span class="nb">cd </span>flutter
+<span class="gp">foo@bar:development/flutter/$</span><span class="w"> </span><span class="nb">pwd</span>
+<span class="go">/home/foo/development/flutter/
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Open (or create) the rc file for your shell. For example, Linux uses the Bash shell by default, so edit $HOME/.bashrc. If you are using a different shell, the file path and filename will be different on your machine.</p>
+  </li>
+  <li>Add the following line in your $HOME/.bashrc:
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">export PATH="$</span>PATH:/home/foo/development/flutter/bin<span class="s2">"
+</span></code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><strong>NOTE:</strong> the PATH <strong>/home/foo/development/flutter/</strong> should be replaced by your path, so in this case <strong>foo</strong> is your Linux user.</p>
+
+<ul>
+  <li>
+    <p>Run source $HOME/.<rc file=""> to refresh the current window or open a new terminal window to automatically source the file.</rc></p>
+  </li>
+  <li>
+    <p>Verify that the flutter/bin directory is now in your PATH by running:</p>
+  </li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:~$</span><span class="w"> </span><span class="nb">cd</span> ~/development
+<span class="gp">foo@bar:development/$</span><span class="w"> </span><span class="nb">echo</span> <span class="nv">$PATH</span>
+<span class="gp">#</span><span class="w"> </span>Verify that the flutter <span class="nb">command </span>is available by running:
+<span class="gp">foo@bar:development/$</span><span class="w"> </span>which flutter
+</code></pre></div></div>
+
+<ul>
+  <li>If every it’s OKAY, let’s try some commands with Flutter SDK:</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:~$</span><span class="w"> </span><span class="nb">cd</span> ~/development
+<span class="gp">foo@bar:development/$</span><span class="w"> </span>flutter precache
+<span class="gp">foo@bar:development/$</span><span class="w"> </span>flutter doctor
+<span class="go">[-] Android toolchain - develop for Android devices
+    • Android SDK at /Users/obiwan/Library/Android/sdk
+</span><span class="gp">    ✗ Android SDK is missing command line tools;</span><span class="w"> </span>download from https://goo.gl/XxQghQ
+<span class="go">    • Try re-installing or updating your Android SDK,
+</span><span class="gp">      visit https://flutter.dev/setup/#</span>android-setup <span class="k">for </span>detailed instructions.
+<span class="go">
+</span></code></pre></div></div>
+
+<ul>
+  <li>Run the last command to see if there are any dependencies you need to install to complete the setup (for verbose output, add the -v flag).</li>
+</ul>
+
+<h2 id="step-1-install-java">STEP 1: Install JAVA</h2>
+
+<ul>
+  <li>
+    <p>In case you have Java already installed on your computer, I would suggest you jump to the next step, in other cases let’s install Java 8.</p>
+  </li>
+  <li>
+    <p>Why Java 8, the new java version, e.g., 10 and 11 has some issues with Flutter checkout https://github.com/flutter/flutter/issues/25811</p>
+  </li>
+  <li>Install on Ubuntu:
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:development/$</span><span class="w"> </span><span class="nb">sudo </span>apt <span class="nb">install </span>openjdk-8-jdk
+</code></pre></div>    </div>
+  </li>
+  <li>Install on Fedora:
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">#</span><span class="w"> </span>JRE
+<span class="gp">foo@bar:development/$</span><span class="w"> </span><span class="nb">sudo </span>dnf <span class="nb">install </span>java-1.8.0-openjdk
+<span class="gp">#</span><span class="w"> </span>JDK
+<span class="gp">foo@bar:development/$</span><span class="w"> </span><span class="nb">sudo </span>dnf <span class="nb">install </span>java-1.8.0-openjdk-devel
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="managing-java">Managing Java</h3>
+
+<p>In case, you have other java versions installed, in another way you can jump to the next step. You can configure which version is the default for use on the command line by using the update-alternatives command.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:development/$</span><span class="w"> </span><span class="nb">sudo </span>update-alternatives <span class="nt">--config</span> java
+</code></pre></div></div>
+
+<ul>
+  <li>You can do this for other Java commands, such as the compiler (javac):</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:development/$</span><span class="w"> </span><span class="nb">sudo </span>update-alternatives <span class="nt">--config</span> javac
+</code></pre></div></div>
+
+<h2 id="step-2-install-android-sdk">STEP 2: Install Android SDK</h2>
+
+<ul>
+  <li>
+    <p>One easy way to install the Android SDK is to install Android Studio, see https://developer.android.com/studio , but in this post, our focus is to adopt the Visual Code to write our Flutter APPs.</p>
+  </li>
+  <li>
+    <p>Therefore, we choose to install only the Android SDK, this way you can go to https://developer.android.com/studio in the section Command line tools only and get the Linux version. <strong>Unfortunately</strong>, we have noted some issues with the latest versions. This way, adopt a specific version of the Android SDK from Google repo:</p>
+  </li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">#</span><span class="w"> </span>NOTE: at this moment, we are inside the development directory
+<span class="gp">foo@bar:development/$</span><span class="w"> </span>wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
+<span class="gp">foo@bar:development/$</span><span class="w"> </span>unzip sdk-tools-linux-4333796.zip 
+<span class="gp">foo@bar:development/$</span><span class="w"> </span><span class="nb">cd </span>tools/bin/ 
+<span class="gp">foo@bar:development/tools/bin/$</span><span class="w"> 
+</span></code></pre></div></div>
+
+<ul>
+  <li>Now we’ll install some tools to run our Flutter APPs on Android, e.g., the emulator, OS version and libraries. Thus, we’ll use the sdkmanager tool. This step can take a little time according to your internet speed.</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:development/tools/bin/$</span><span class="w"> </span>./sdkmanager <span class="s2">"tools"</span> <span class="s2">"build-tools;29.0.3"</span> <span class="s2">"emulator"</span> <span class="s2">"platform-tools"</span> <span class="s2">"platforms;android-29"</span> <span class="s2">"system-images;android-29;google_apis_playstore;x86_64"</span>
+</code></pre></div></div>
+
+<p><strong>NOTE:</strong> At this moment, it’s possible to get some issues to break the Android SDK installation, one example of common issues and solution, you can try and repeat the install:</p>
+
+<ul>
+  <li>No space left on device, details at https://bytefreaks.net/applications/android-studio-no-space-left-on-device , <strong>SOLUTION</strong>:</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:development/tools/bin/$</span><span class="w"> </span><span class="nb">sudo </span>mount <span class="nt">-o</span> remount,size<span class="o">=</span>8G,noatime /tmp<span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>OPTIONAL:</strong> This is optional, but highly recommended, to confirm all licenses from Android SDK.</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:development/tools/bin/$</span><span class="w"> </span>./sdkmanager <span class="nt">--licenses</span>
+</code></pre></div></div>
+
+<h3 id="install-android-debug-bridge-adb">Install Android Debug Bridge (adb)</h3>
+
+<ul>
+  <li>
+    <p>Android Debug Bridge (adb) is a versatile command-line tool that lets you communicate with a device. The adb command facilitates a variety of device actions, such as installing and debugging apps, and it provides access to a Unix shell that you can use to run a variety of commands on a device. More details at https://developer.android.com/studio/command-line/adb</p>
+  </li>
+  <li>
+    <p>Install on Ubuntu:</p>
+  </li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:development/tools/bin/$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>android-tools-adb 
+</code></pre></div></div>
+
+<ul>
+  <li>Install on Fedora:</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:development/tools/bin/$</span><span class="w"> </span><span class="nb">sudo </span>dnf <span class="nb">install </span>adb 
+</code></pre></div></div>
+
+<h2 id="step-3-update-your-path-with-the-android-sdk">STEP 3: Update your path with the Android SDK</h2>
+
+<ul>
+  <li>Add the following line in your $HOME/.bashrc:</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">ANDROID_HOME=/home/foo/development/tools
+
+</span><span class="gp">export PATH=$</span>PATH:<span class="nv">$ANDROID_HOME</span>:<span class="nv">$ANDROID_HOME</span>:<span class="nv">$ANDROID_HOME</span>/tools/bin:<span class="nv">$ANDROID_HOME</span>/platform-tools
+</code></pre></div></div>
+
+<ul>
+  <li>Now to check if Flutter see Android SDK
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:development/tools/bin/$</span><span class="w"> </span>flutter doctor <span class="nt">-v</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="step-4-install-flutter-plugin-on-visual-code">STEP 4: Install Flutter plugin on Visual Code</h2>
+
+<ul>
+  <li>Opening Visual Code and go to “Extensions” or Ctrl+Shift+X, then in Search look for Flutter and click and install, as follows:</li>
+</ul>
+
+<p><img src="/assets/flutter_plugin_vs.png" alt="Flutter plugin VS" title="Flutter plugin VS" /></p>
+
+<ul>
+  <li>Install Dart plugin on VS still in “Extensions” on Visual Code, for Dart and click and install, as follows:</li>
+</ul>
+
+<p><img src="/assets/dart_plugin_vs.png" alt="Dart plugin VS" title="Dart plugin VS" /></p>
+
+<ul>
+  <li>We are all ready to write our Flutter APPs using Visual Code on Linux</li>
+</ul>
+
+<h2 id="step-5-create-a-hello-world-app-in-flutter">STEP 5: Create a Hello World APP in Flutter</h2>
+
+<ul>
+  <li>
+    <p>In the future, I’ll explain in detail the code but for now, we focus on how to run a Flutter APP in our devel environment.</p>
+  </li>
+  <li>
+    <p>Let’s create a directory (inside development) to organize our APP</p>
+  </li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:development/tools/bin/$</span><span class="w"> </span><span class="nb">cd</span> ../../
+<span class="gp">foo@bar:development/$</span><span class="w"> </span><span class="nb">mkdir </span>hello_app 
+<span class="gp">foo@bar:development/$</span><span class="w"> </span><span class="nb">cd </span>hello_app
+<span class="gp">foo@bar:development/$</span><span class="w"> </span>flutter create <span class="nb">.</span>
+<span class="go">Creating project .... androidx: true
+  android/build.gradle (created)
+  android/app/build.gradle (created)
+  android/app/src/main/kotlin/com/example/hello_app/MainActivity.kt (created)
+  android/hello_app_android.iml (created)
+  lib/main.dart (created)
+</span><span class="c">  ...
+</span><span class="go">  ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata (created)
+  .metadata (created)
+  hello_app.iml (created)
+Running "flutter pub get" in hello_app...                           4.0s
+Wrote 77 files.
+</span><span class="c">...
+</span><span class="go">
+In order to run your application, type:
+
+</span><span class="gp">  $</span><span class="w"> </span><span class="nb">cd</span> <span class="nb">.</span>
+<span class="gp">  $</span><span class="w"> </span>flutter run
+<span class="go">
+Your application code is in ./lib/main.dart.
+</span></code></pre></div></div>
+
+<ul>
+  <li>Opening the source code in the Visual Code, you need to go in the menu File -&gt; Open Folder</li>
+</ul>
+
+<p><strong>That’s all folks</strong>.</p>
+:ET

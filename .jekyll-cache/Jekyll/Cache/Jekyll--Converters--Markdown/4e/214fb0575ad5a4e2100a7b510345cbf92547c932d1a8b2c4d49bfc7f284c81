@@ -1,0 +1,187 @@
+I"E7<h1 id="using-afl-and-libfuzzer">Using AFL and libFuzzer</h1>
+
+<p><strong>This post is based on text from <a href="https://blog.f-secure.com/super-awesome-fuzzing-part-one/">f-secure blog</a>.</strong></p>
+
+<p>The tools for bug hunting have been adopted fuzzing as a very effective technique. In this text, we keep our focus on tools such as <a href="http://lcamtuf.coredump.cx/afl/">American Fuzzy Lop</a> (AFL), <a href="http://llvm.org/docs/LibFuzzer.html">LLVM libFuzzer</a>.</p>
+
+<h2 id="using-afl">Using AFL</h2>
+
+<p>For the next steps, we adopted a Linux docker container, aiming to keep a pattern for our commands.</p>
+
+<ul>
+  <li>
+    <p>Install docker, checking out this <a href="[https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04]">LINK</a></p>
+  </li>
+  <li>
+    <p>Create our container:</p>
+  </li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:~$</span><span class="w"> </span>docker run <span class="nt">-it</span> <span class="nt">--name</span> afl ubuntu:18.04 /bin/bash
+<span class="go">Unable to find image "ubuntu:18.04" locally
+18.04: Pulling from library/ubuntu
+423ae2b273f4: Pull complete 
+de83a2304fa1: Pull complete 
+f9a83bce3af0: Pull complete 
+b6b53be908de: Pull complete 
+</span><span class="c">...
+</span><span class="gp">root@a3cbc72a4874:/#</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li>Install AFL and get the source code of libxml2-utils</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt-get update
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt-get <span class="nb">install</span> <span class="nt">-y</span> afl
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span><span class="nb">cd </span>home
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span><span class="nb">cp</span> /etc/apt/sources.list /etc/apt/sources.list.bkp
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span><span class="nb">sed</span> <span class="nt">-Ei</span> <span class="s2">"s/^# deb-src /deb-src /"</span> /etc/apt/sources.list
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt-get update
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt-get <span class="nb">source </span>libxml2-utils
+</code></pre></div></div>
+
+<ul>
+  <li>We configure libxml2 build to use AFL compilers and compile the xmllint utility
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt-get <span class="nb">install </span>build-essential <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt-get <span class="nb">install </span>automake <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt-get <span class="nb">install </span>zlib1g-dev <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt-get <span class="nb">install </span>pkg-config <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt-get <span class="nb">install </span>libtool <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span><span class="nb">cd </span>libxml2-2.9.4+dfsg1/
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>./configure <span class="nv">CC</span><span class="o">=</span>afl-gcc <span class="nv">CXX</span><span class="o">=</span>afl-g++
+<span class="gp">#</span><span class="w"> </span><span class="k">in case</span> of error, try run ./autogen.sh
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>make xmllint
+<span class="c">...
+</span><span class="gp">afl-as 2.52b by &lt;lcamtuf@google.com&gt;</span><span class="w">
+</span><span class="go">[+] Instrumented 18 locations (64-bit, non-hardened mode, ratio 100%).
+CC       schematron.lo
+</span><span class="gp">afl-cc 2.52b by &lt;lcamtuf@google.com&gt;</span><span class="w">
+</span><span class="gp">afl-as 2.52b by &lt;lcamtuf@google.com&gt;</span><span class="w">
+</span><span class="go">[+] Instrumented 566 locations (64-bit, non-hardened mode, ratio 100%).
+CC       xzlib.lo
+</span><span class="gp">afl-cc 2.52b by &lt;lcamtuf@google.com&gt;</span><span class="w">
+</span><span class="gp">afl-as 2.52b by &lt;lcamtuf@google.com&gt;</span><span class="w">
+</span><span class="go">[!] WARNING: No instrumentation targets found.
+CCLD     libxml2.la
+</span><span class="gp">afl-cc 2.52b by &lt;lcamtuf@google.com&gt;</span><span class="w">
+</span><span class="go">ar: `u' modifier ignored since `D' is the default (see `U')
+CCLD     xmllint
+</span><span class="gp">afl-cc 2.52b by &lt;lcamtuf@google.com&gt;</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li>Now we create a sample file (to run AFL fuzzing) with content &lt;a&gt;&lt;/a&gt; for AFL to start with and run the afl-fuzz.
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span><span class="nb">mkdir </span><span class="k">in</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span><span class="nb">echo</span> <span class="s2">"&lt;a&gt;&lt;/a&gt;"</span> <span class="o">&gt;</span> <span class="k">in</span>/sample
+<span class="gp">#</span><span class="w"> </span>some flag to skip erros to run afl <span class="k">in </span>docker, more details at https://github.com/mirrorer/afl/blob/master/docs/env_variables.txt
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span><span class="nb">export </span><span class="nv">AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES</span><span class="o">=</span>1
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span><span class="nb">export </span><span class="nv">AFL_SKIP_CPUFREQ</span><span class="o">=</span>1
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>./.libs/ afl-fuzz <span class="nt">-i</span> ./in <span class="nt">-o</span> ./out <span class="nt">--</span> ./.libs/xmllint <span class="nt">-o</span> /dev/null @@
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p><img src="/assets/afl_run.png" alt="AFL running" title="AFL running" /></p>
+
+<p>AFL will continue fuzzing indefinitely, writing inputs that trigger new code coverage in ./out/queue/, crash triggering inputs in ./out/crashes/ and inputs causing hangs in /out/hangs/. For more information on how to interpret the AFL’s status screen, see: http://lcamtuf.coredump.cx/afl/status_screen.txt</p>
+
+<h2 id="fuzzing-with-llvm-libfuzzer">Fuzzing with LLVM libFuzzer</h2>
+
+<ul>
+  <li>Let’s now adopting LLVM libFuzzer. To start fuzzing, you’ll first need to introduce a target function, <strong>LLVMFuzzerTestOneInput</strong>, that receives the fuzzed input buffer from libFuzzer. The LibFuzzer implementation works by creating a custom entry point, which contains an array of bytes (of uint8_t). The code looks like this.</li>
+</ul>
+
+<pre><code class="language-C">extern "C" int LLVMFuzzerTestOneInput(const uint8_t *Data, size_t Size) {
+ DoSomethingInterestingWithMyAPI(Data, Size);
+ return 0; // Non-zero return values are reserved for future use.
+}
+</code></pre>
+
+<p>For fuzzing libxml2, Google’s fuzzer test suite provides a good <a href="https://github.com/google/fuzzer-test-suite/blob/master/libxml2-v2.9.2/target.cc">example fuzzing function</a>.</p>
+
+<pre><code class="language-C">// Copyright 2016 Google Inc. All Rights Reserved.
+// Licensed under the Apache License, Version 2.0 (the "License");
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include "libxml/xmlversion.h"
+#include "libxml/parser.h"
+#include "libxml/HTMLparser.h"
+#include "libxml/tree.h"
+
+void ignore (void * ctx, const char * msg, ...) {}
+
+extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
+ xmlSetGenericErrorFunc(NULL, &amp;ignore);
+ if (auto doc = xmlReadMemory(reinterpret_cast(data), size, "noname.xml", NULL, 0))
+ xmlFreeDoc(doc);
+ return 0;
+}
+</code></pre>
+
+<ul>
+  <li>We make our work simple, we adopt the code from GitHub repo. This way, we start from the last step with AFL</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/home/libxml2-2.9.4+dfsg1#</span><span class="w"> </span><span class="nb">cd</span> ..
+<span class="gp">root@a3cbc72a4874:/home#</span><span class="w"> </span>apt-get <span class="nb">install </span>git <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/home#</span><span class="w"> </span>git clone https://github.com/GNOME/libxml2 libxml2
+<span class="gp">root@a3cbc72a4874:/home#</span><span class="w"> </span><span class="nb">cd </span>libxml2
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>Recent versions of Clang (starting from 6.0) include libFuzzer, and no extra installation is necessary.</p>
+  </li>
+  <li>
+    <p>In order to build your fuzzer binary, use the -fsanitize=fuzzer flag during the compilation and linking. In most cases, you may want to combine libFuzzer with AddressSanitizer (ASAN), UndefinedBehaviorSanitizer (UBSAN), or both. You can also build with MemorySanitizer (MSAN), but support is experimental:</p>
+  </li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span>apt-get <span class="nb">install </span>clang-6.0 <span class="nt">-y</span>
+<span class="gp">#</span><span class="w"> </span>dependece of libxml2
+<span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span>apt-get <span class="nb">install </span>python-dev <span class="nt">-y</span> 
+</code></pre></div></div>
+
+<ul>
+  <li>Setting up FLAGS to build libxml2. Here you could explore different kinds of coverage-guided (using, clang coverage), which tries to maximize the code coverage of a program. For example, the inline-8bit-counters option from LLVM (SanitizerCoverage) for code coverage instrumentation built-in, where the compiler will insert inline counter that should be incremented on every edge.</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span><span class="nb">export </span><span class="nv">CXXFLAGS</span><span class="o">=</span><span class="s2">"-fsanitize=address,undefined -fsanitize-coverage=edge,indirect-calls,trace-pc-guard,trace-cmp"</span>
+<span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span><span class="nb">export </span><span class="nv">CXX</span><span class="o">=</span><span class="s2">"clang++-6.0"</span>
+<span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span><span class="nb">export </span><span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">"-fsanitize=address,undefined -fsanitize-coverage=edge,indirect-calls,trace-pc-guard,trace-cmp"</span>
+<span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span><span class="nb">export </span><span class="nv">CC</span><span class="o">=</span><span class="s2">"clang-6.0"</span>
+<span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span><span class="nb">export </span><span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">"-fsanitize=address,undefined -fsanitize-coverage=edge,indirect-calls,trace-pc-guard,trace-cmp"</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Building LIBXML2</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span>./autogen.sh
+<span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span>make
+</code></pre></div></div>
+
+<ul>
+  <li>Now we need to write the libfuzz test, then we adopt from <a href="https://github.com/google/fuzzer-test-suite/blob/master/libxml2-v2.9.2/target.cc">Google’s fuzzer test suite</a>.</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span>apt-get <span class="nb">install </span>wget <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span>wget https://raw.githubusercontent.com/google/fuzzer-test-suite/master/libxml2-v2.9.2/target.cc
+<span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span><span class="nv">$CXX</span> <span class="nv">$CXXFLAGS</span> <span class="nt">-std</span><span class="o">=</span>c++11 target.cc <span class="nt">-Iinclude</span> <span class="nt">-L</span>.libs <span class="nt">-lxml2</span> <span class="nt">-fsanitize</span><span class="o">=</span>fuzzer <span class="nt">-o</span> libxml-fuzzer
+</code></pre></div></div>
+
+<ul>
+  <li>Now we are ready to run our fuzzer.</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span><span class="nb">mkdir</span> ./output
+<span class="gp">root@a3cbc72a4874:/home/libxml2#</span><span class="w"> </span>./libxml-fuzzer ./output/
+</code></pre></div></div>
+
+<p><img src="/assets/lib_fuzzer_01.png" alt="LibFuzzer running" title="LibFuzzer running" /></p>
+
+<ul>
+  <li>All inputs that trigger new coverage are stored as sample files in ./output. As libFuzzer runs in-process, if a bug is found, it saves the test case and exits. For more information on how to interpret the output to see: http://llvm.org/docs/LibFuzzer.html#output</li>
+</ul>
+
+:ET

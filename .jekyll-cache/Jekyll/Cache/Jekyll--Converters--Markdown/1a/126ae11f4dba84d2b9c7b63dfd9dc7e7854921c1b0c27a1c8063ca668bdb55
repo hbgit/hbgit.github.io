@@ -1,0 +1,19 @@
+I"L<h1 id="project-flutter-a-to-z">Project Flutter A to Z</h1>
+
+<p><img src="/assets/flutter_logo.png" alt="Flutter logo" title="Flutter logo" /></p>
+
+<h2 id="keep-watching">Keep Watching</h2>
+
+<p>I’ve been writing some APPs examples using <strong>Flutter CI/CD</strong> adopting GitHub actions. The steps of the main flow of the project are:</p>
+<ul>
+  <li>Adopting GitHub as version control from the source code project, thus each commit on branch master is analyzed using flutter analyze</li>
+  <li>Running the tests, including widget tests and unit testing</li>
+  <li>The results of the tests are then sent to CodeCov (https://codecov.io/) service to analyze the code coverage</li>
+  <li>All previously items are done, then the App APK is built in the GitHub repository generating the draft release</li>
+  <li>Finally, adopting the GitHub actions, the App is deployed in the GitHub pages using Flutter Web</li>
+</ul>
+
+<p><strong>Checking out the project</strong>: https://github.com/hbgit/flutter_a_z</p>
+
+<p><img src="/assets/flutter_pub.png" alt="Flutter Project" title="Flutter Project" /></p>
+:ET

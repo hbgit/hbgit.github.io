@@ -1,0 +1,261 @@
+I"�G<h1 id="install-crucible-for-c-programs">Install Crucible for C Programs</h1>
+
+<p><strong>This post is based on text from <a href="https://github.com/GaloisInc/crucible">Crucible repository</a>.</strong></p>
+
+<p>Crucible is a language-agnostic library for performing forward symbolic execution of imperative programs.  It provides a collection of data-structures and APIs for expressing programs as control-flow graphs. Programs expressed as CFGs in this way can be automatically explored by the symbolic execution engine. In addition, new data types and operations can be added to the symbolic simulator by implementing fresh primitives directly in Haskell. Check out the GitHub at https://github.com/GaloisInc/crucible</p>
+
+<p>For the next steps, we adopted a Linux docker container, aiming to keep a pattern for our commands.</p>
+
+<ul>
+  <li>
+    <p>Install docker, checking out this <a href="[https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04]">LINK</a></p>
+  </li>
+  <li>
+    <p>Create our container:</p>
+  </li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">foo@bar:~$</span><span class="w"> </span>docker run <span class="nt">-it</span> <span class="nt">--name</span> crucible ubuntu:18.04 /bin/bash
+<span class="go">Unable to find image "ubuntu:18.04" locally
+18.04: Pulling from library/ubuntu
+423ae2b273f4: Pull complete 
+de83a2304fa1: Pull complete 
+f9a83bce3af0: Pull complete 
+b6b53be908de: Pull complete 
+</span><span class="c">...
+</span><span class="gp">root@a3cbc72a4874:/#</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li>Install Crucible and fetching the dependencies. In this step, we’ll install tools, such as ghc (Haskell compiler) v8.6.5, Boost library (libboost-all-dev), Number Theory Library (libntl-dev) development files, and GNU Linear Programming Kit. Let’s go to the commands:</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt update
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt <span class="nb">install </span>software-properties-common <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>add-apt-repository ppa:hvr/ghc <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt update
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt <span class="nb">install </span>ghc-8.6.5 <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /opt/ghc/bin/ghc-8.6.5 /usr/bin/ghc
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt <span class="nb">install </span>cabal-install-3.0 <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /opt/cabal/bin/cabal-3.0 /bin/cabal
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt <span class="nb">install </span>git <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt <span class="nb">install </span>libboost-all-dev <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt <span class="nb">install </span>libntl-dev <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt <span class="nb">install </span>libglpk-dev <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>apt <span class="nb">install </span>libncurses5-dev <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span><span class="nb">cd </span>home
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>git clone https://github.com/GaloisInc/crucible.git
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span><span class="nb">cd </span>crucible
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>From the Crucible repository, we’ll get the following Haskell packages: crucible, crucible-llvm, crucible-saw, crucible-syntax, and crux. Additionally, the crux-llvm library/executable package that is a standalone frontend for executing C and C++ programs in the crucible symbolic simulator. The front-end invokes clang to produce LLVM bitcode and runs the resulting programs using the crucible-llvm language frontend.</p>
+  </li>
+  <li>
+    <p>Let’s build the Crucible packages, starting to fetch all the latest git versions of immediate dependencies of libraries in this repository:</p>
+  </li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>./scripts/build-sandbox.sh
+<span class="c">...
+</span><span class="go">Submodule 'abc-build' (https://github.com/GaloisInc/abc.git) registered for path 'dependencies/what4/dependencies/abcBridge/abc-build'
+Cloning into '/home/crucible/dependencies/what4/dependencies/abcBridge/abc-build'...
+Submodule path 'dependencies/what4/dependencies/abcBridge/abc-build': checked out 'c78ee31186ab4da49f348f1262c27c0a048bba82'
+Submodule path 'dependencies/what4/dependencies/aig': checked out 'b59077c065b659e985ee25966809dd448a0d595a'
+Submodule path 'dependencies/what4/dependencies/blt': checked out 'd0c8d9d14fe1bb43045ca04d6961a6290af637b7'
+Submodule path 'dependencies/cryptol-verifier': checked out 'f33f4f234da9f48664f61bd9492b09259c78b60f'
+Submodule path 'dependencies/jvm-parser': checked out '5368a84117dc28e0002003e8d8a491dd8756b421'
+</span></code></pre></div></div>
+
+<ul>
+  <li>Update the Haskell packages and build the Crucible packages.</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>cabal update
+<span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>cabal new-configure
+<span class="c">...
+</span><span class="go">crux-llvm-0.3.2 (test:crux-llvm-test) (first run)
+crux-llvm-0.3.2 (exe:crux-llvm-svcomp) (first run)
+crux-llvm-0.3.2 (exe:crux-llvm) (first run)
+crucible-mc-0.1.0.0 (exe:crucible-mc) (first run)
+cryptol-verifier-0.1 (exe:css) (first run)
+cryptol-verifier-0.1 (test:cryptol-verifier-tc-test) (first run)
+crucible-server-0.1 (first run)
+
+</span><span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>cabal new-build crucible
+<span class="c">...
+</span><span class="go">[50 of 50] Compiling Lang.Crucible.Vector ( src/Lang/Crucible/Vector.hs, /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crucible-0.5/build/Lang/Crucible/Vector.o )
+
+</span><span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>cabal new-build crucible-llvm
+<span class="c">...
+</span><span class="go">[44 of 44] Compiling Lang.Crucible.LLVM.Ctors ( src/Lang/Crucible/LLVM/Ctors.hs, /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crucible-llvm-0.3/build/Lang/Crucible/LLVM/Ctors.o )
+
+</span><span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>cabal new-build crucible-saw
+<span class="c">...
+</span><span class="go">[1 of 1] Compiling Lang.Crucible.Backend.SAWCore ( src/Lang/Crucible/Backend/SAWCore.hs, /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crucible-saw-0.1/build/Lang/Crucible/Backend/SAWCore.o )
+
+</span><span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>cabal new-build crucible-syntax
+<span class="c">...
+</span><span class="go">[1 of 1] Compiling Main             ( crucible-syntax/Main.hs, /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crucible-syntax-0.1/x/crucibler/build/crucibler/crucibler-tmp/Main.o )
+Linking /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crucible-syntax-0.1/x/crucibler/build/crucibler/crucibler ...
+
+</span><span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>cabal new-build crux
+<span class="c">...
+</span><span class="go">[18 of 18] Compiling Crux             ( src/Crux.hs, /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-0.1/build/Crux.o )
+
+</span><span class="gp">root@a3cbc72a4874:/#</span><span class="w"> </span>cabal new-build crux-llvm
+<span class="c">...
+</span><span class="go">[1 of 1] Compiling Main             ( svcomp/Main.hs, /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm-svcomp/build/crux-llvm-svcomp/crux-llvm-svcomp-tmp/Main.o )
+Linking /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/crux-llvm ...
+Linking /home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm-svcomp/build/crux-llvm-svcomp/crux-llvm-svcomp ...
+</span></code></pre></div></div>
+
+<p>It’s done.</p>
+
+<h2 id="install-llvm-v8">Install LLVM v8</h2>
+
+<ul>
+  <li>The LLVM tool, e.g., Clang-8 allows the Crucible to execute the C code verification.</li>
+</ul>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span>apt <span class="nb">install</span> <span class="nt">-y</span> build-essential subversion cmake ninja-build python-minimal wget
+<span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span><span class="nb">echo</span> <span class="s2">"deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main"</span> <span class="o">&gt;&gt;</span> /etc/apt/sources.list
+<span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span><span class="nb">echo</span> <span class="s2">"deb-src http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main"</span> <span class="o">&gt;&gt;</span> /etc/apt/sources.list
+<span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span>wget <span class="nt">-O</span> - https://apt.llvm.org/llvm-snapshot.gpg.key|apt-key add -
+<span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span>apt update
+<span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span>apt <span class="nb">install </span>aptitude <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span>aptitude <span class="nb">install </span>libllvm-8-ocaml-dev libllvm8 llvm-8 llvm-8-dev llvm-8-doc llvm-8-examples llvm-8-runtime <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span>aptitude <span class="nb">install </span>clang-8 clang-tools-8 clang-8-doc libclang-common-8-dev libclang-8-dev libclang1-8 clang-format-8 python-clang-8 <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /usr/bin/clang-8 /usr/bin/clang
+<span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /usr/bin/opt-8 /usr/bin/opt
+<span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /usr/bin/llvm-link-8 /usr/bin/llvm-link
+</code></pre></div></div>
+
+<h2 id="install-a-solver">Install a Solver</h2>
+
+<p>In this case, we’ll install Yices as an SMT solver. Further details at https://yices.csl.sri.com/</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span>add-apt-repository ppa:sri-csl/formal-methods <span class="nt">-y</span>
+<span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span>apt-get update
+<span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span>apt-get <span class="nb">install </span>yices2 <span class="nt">-y</span>
+</code></pre></div></div>
+
+<h2 id="testing-crucible-llvm">Testing Crucible LLVM</h2>
+
+<p>In this step we’ll adopt the following code using SV-COMP rules to check a given code:</p>
+
+<ul>
+  <li>Setting up:
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span><span class="nb">cd </span>dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/
+<span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-r</span> /home/crucible/crux-llvm/c-src <span class="nb">.</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<pre><code class="language-C">// test.c code
+#include &lt;stdint.h&gt;
+#include &lt;crucible.h&gt;
+
+int8_t f(int8_t x) {
+  return x + 1;
+}
+
+int main() {
+  int8_t x = crucible_int8_t("x");
+
+  assuming(x &lt; 100);
+  check(f(x) &lt; 100);
+  return 0;
+}
+
+</code></pre>
+<ul>
+  <li>Running:
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span>./crux-llvm test.c <span class="nt">-x</span>
+<span class="c">...
+</span><span class="go">[CLANG] clang "-c" "-g" "-emit-llvm" "-O1" "-I" "." "-I" "c-src/includes" "-o" "test.bc" "test.c"
+[Crux] Simulating function "main"
+[Crux] Attempting to prove verification conditions.
+[Crux] Goal status:
+[Crux]   Total: 1
+[Crux]   Proved: 0
+[Crux]   Disproved: 1
+[Crux]   Incomplete: 0
+[Crux]   Unknown: 0
+[Crux] Overall status: Invalid.
+</span></code></pre></div>    </div>
+  </li>
+  <li><strong>NOTE</strong>: The crucible.h API allows for better explanations by a) allowing user-specified names for non-deterministic variables, and b) ensuring that the conditions used in assertions are directly available and not obscured by a conditional wrapper around an error function. It’s possible you need to fix the header path, e.g., replace <crucible.h> by "crucible.h".</crucible.h></li>
+</ul>
+
+<h2 id="testing-crucible-llvm-using-sv-comp-definitions">Testing Crucible LLVM using SV-COMP definitions</h2>
+
+<ul>
+  <li>The following example.c code has the __VERIFIER_ERROR() function the points an error location in the code. This way, the goal of the code verification is found values to reach code location.</li>
+</ul>
+
+<pre><code class="language-C">extern void __VERIFIER_error() __attribute__((__noreturn__));
+extern int __VERIFIER_nondet_int(void);
+
+int main(){
+    
+  int a = __VERIFIER_nondet_int();
+  int b = __VERIFIER_nondet_int();
+
+  if( (a+b) &gt; 42 ){
+      __VERIFIER_error();
+  }
+  
+  return 0;
+}
+</code></pre>
+<ul>
+  <li>Running:
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span>./crux-llvm example.c <span class="nt">-x</span>
+<span class="go">[CLANG] clang "-c" "-g" "-emit-llvm" "-O1" "-I" "." "-I" "c-src/includes" "-o" "example.bc" "example.c"
+[Crux] Simulating function "main"
+[Crux] Attempting to prove verification conditions.
+[Crux] Goal status:
+[Crux]   Total: 2
+[Crux]   Proved: 0
+[Crux]   Disproved: 2
+[Crux]   Incomplete: 0
+[Crux]   Unknown: 0
+[Crux] Overall status: Invalid.
+</span></code></pre></div>    </div>
+  </li>
+  <li><strong>NOTE:</strong> In this code verification Crucible set to verification condition: overflow, and reach check. Now let’s check the report:
+    <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">root@a3cbc72a4874:/home/crucible#</span><span class="w"> </span><span class="nb">cat </span>results/example/report.js
+<span class="go">var goals = [{"status": "fail","counter-example": [ {"name": "X","loc": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "6","col": "13"},"val": "BV 2147483648","bits": "32"}
+, {"name": "X","loc": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "7","col": "13"},"val": "BV 2147483648","bits": "32"}
+]
+,"goal": "LLVM Poison value created\nSigned addition caused wrapping even though the `nsw` flag was set","location": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "9","col": "11"},"assumptions": [],"trivial": false,"path": []},{"status": "fail","counter-example": [ {"name": "X","loc": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "6","col": "13"},"val": "BV 0","bits": "32"}
+, {"name": "X","loc": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "7","col": "13"},"val": "BV 1073741824","bits": "32"}
+]
+,"goal": "__VERIFIER_error","location": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "10","col": "9"},"assumptions": [{"loc": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "9","col": "9"}}],"trivial": false,"path": [{"loop": [1],"loc": {"file": "/home/crucible/dist-newstyle/build/x86_64-linux/ghc-8.6.5/crux-llvm-0.3.2/x/crux-llvm/build/crux-llvm/example.c","line": "9","col": "9"}}]}]
+</span></code></pre></div>    </div>
+  </li>
+  <li>Let’s focus on the values generated to reach the line:
+    <ul>
+      <li>“line”: “6”,”col”: “13”},”val”: “BV 0”</li>
+      <li>“line”: “7”,”col”: “13”},”val”: “BV 1073741824”</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Aiming to get a better way to visualize you should see the files at path results/example/</p>
+
+<ul>
+  <li>Goal 1 to check, possible overflow</li>
+</ul>
+
+<p><img src="/assets/crucible_1_result.png" alt="Result goal 1" title="Result goal 1" /></p>
+
+<ul>
+  <li>Goal 2 to check, reach check</li>
+</ul>
+
+<p><img src="/assets/crucible_2_result.png" alt="Result goal 2" title="Result goal 2" /></p>
+
+:ET
