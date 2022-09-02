@@ -3,16 +3,24 @@ layout: page
 title: Resume
 permalink: /resume/
 ---
+# Hello, I am `Herbert Oliveira Rocha`.
+
+Currently, I am a professor in the Departament of Computer Science at 
+[Federal University of Roraima][ufrrdcc]. My research focuses on the development of automated verification and software testing techniques for software systems. In particular, I am interested in the verification and testing of the critical embedded systems. 
 
 # `PERSONAL DATA`
+
 - Place and Date of Birth: Brazil – 25 February 1988  
-- Researcher from: [Federal University of Amazonas](http://icomp.ufam.edu.br/index.php?lang=en) and National Science and Technology Institute for Critical Embedded  Systems – [INCT-SEC](http://www.inct-sec.org/en/)  
-- Phone: +55 92 8106 5943
-- Email: herberthb12@gmail.com  
-- Skype: herberthb12
+- Researcher from/at:
+    - [Department of Computer Science of the Federal University of Roraima](https://prismrr.github.io/) (2015 to present)
+    - National Science and Technology Institute for Critical Embedded Systems [INCT-SEC](http://www.inct-sec.icmc.usp.br/en/) (2011 to 2012)
+    - [Federal University of Amazonas](http://icomp.ufam.edu.br/index.php?lang=en) (2009 to 2015)
+- Phone: +55 95 98400 5346
+- Email: herbert.rocha@ufrr.br  
 
 # `EDUCATION`
-- `2011`: **Ph.D. in Computer Science in progress**. Federal University of Amazonas, UFAM, Brazil  -Thesis: Correctness and Safety of the Critical Embedded Systems using Bounded Model Checkers with Simplified Verification Methods. Advisor: Prof. PhD. Raimundo da Silva Barreto; 
+
+- `2011 - 2015`: **Ph.D. in Computer Science**. Federal University of Amazonas, UFAM, Brazil - Thesis: Verification of Software Systems based on Code Transformations using Bounded Model Checking. Advisor: Prof. PhD. Raimundo da Silva Barreto and Co-Advisor: Prof. PhD. Lucas Carvalho Cordeiro; 
 - `2009 - 2011`: **Master in Computer Science**. Federal University of Amazonas, UFAM, Brazil. Thesis: Verification and Validation of Error in C Codes using Bounded Model Checker. Advisor: Prof. PhD. Raimundo da Silva Barreto
 - `2006 - 2008`: **Undergraduate Degree in Technology of Analysis and Development Systems**. Federal Institute of Education, Science and Technology of Roraima, IFRR, Brazil. Thesis: Development of Embedded Software for Control Orders of Restaurant using J2ME. Advisor: Prof. MSc. Pierre Viana Junior
 
@@ -49,3 +57,18 @@ Federal Institute of Education, Science and Technology of RoraiUndergraduate Deg
 
 12. ROCHA, H. O.; Jefferson Thomas de Oliveira ; Marcelo de Farias Matos ; Pierre da Costa Viana Júnior . **Desenvolvimento de Software Embarcado para Controle de Pedidos de Pizzaria com J2ME**. Norte Científico, v. 3, p. 8-22, 2008. 
 
+# `INTERESTS IN COMPUTING`
+
+- Software Quality 
+- Verification and Validation of Software
+- Testing Software
+- Model Checking 
+- Embedded Systems 
+- Operating Systems 
+- Open-Source
+- Programming Languages
+- Regular Expressions
+- Web Systems, and 
+- Design and Art
+
+[ufrrdcc]: http://ufrr.br/dcc

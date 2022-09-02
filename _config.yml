@@ -5,8 +5,8 @@ logo: /static/img/avatar.jpg
 github: https://github.com/hbgit
 about: Research Professor
 
-baseurl: "https://hbgit.github.io/"
-url: ""
+#baseurl: "https://hbgit.github.io/"
+#url: ""
 
 allowsearch: true
 

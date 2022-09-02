@@ -1,15 +1,27 @@
-I"ÿ<h1 id="personal-data"><code class="language-plaintext highlighter-rouge">PERSONAL DATA</code></h1>
+I"œ<p>Hello, I am <code class="language-plaintext highlighter-rouge">Herbert Oliveira Rocha</code>.</p>
+
+<p>Currently, I am a professor in the Departament of Computer Science at 
+<a href="https://ufrr.br">Federal University of Roraima</a>. My research focuses on the development of automated verification and software testing techniques for software systems. In particular, I am interested in the verification and testing of the critical embedded systems.</p>
+
+<h1 id="personal-data"><code class="language-plaintext highlighter-rouge">PERSONAL DATA</code></h1>
+
 <ul>
   <li>Place and Date of Birth: Brazil â€“ 25 February 1988</li>
-  <li>Researcher from: <a href="http://icomp.ufam.edu.br/index.php?lang=en">Federal University of Amazonas</a> and National Science and Technology Institute for Critical Embedded  Systems â€“ <a href="http://www.inct-sec.org/en/">INCT-SEC</a></li>
-  <li>Phone: +55 92 8106 5943</li>
-  <li>Email: herberthb12@gmail.com</li>
-  <li>Skype: herberthb12</li>
+  <li>Researcher from/at:
+    <ul>
+      <li><a href="https://prismrr.github.io/">Department of Computer Science of the Federal University of Roraima</a> (2015 - to present)</li>
+      <li>National Science and Technology Institute for Critical Embedded Systems <a href="http://www.inct-sec.icmc.usp.br/en/">INCT-SEC</a> (2011-2012)</li>
+      <li><a href="http://icomp.ufam.edu.br/index.php?lang=en">Federal University of Amazonas</a> (2009-2015)</li>
+    </ul>
+  </li>
+  <li>Phone: +55 95 98400 5346</li>
+  <li>Email: herbert.rocha@ufrr.br</li>
 </ul>
 
 <h1 id="education"><code class="language-plaintext highlighter-rouge">EDUCATION</code></h1>
+
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">2011</code>: <strong>Ph.D. in Computer Science in progress</strong>. Federal University of Amazonas, UFAM, Brazil  -Thesis: Correctness and Safety of the Critical Embedded Systems using Bounded Model Checkers with Simplified Verification Methods. Advisor: Prof. PhD. Raimundo da Silva Barreto;</li>
+  <li><code class="language-plaintext highlighter-rouge">2011 - 2015</code>: <strong>Ph.D. in Computer Science</strong>. Federal University of Amazonas, UFAM, Brazil - Thesis: Verification of Software Systems based on Code Transformations using Bounded Model Checking. Advisor: Prof. PhD. Raimundo da Silva Barreto and Co-Advisor: Prof. PhD. Lucas Carvalho Cordeiro;</li>
   <li><code class="language-plaintext highlighter-rouge">2009 - 2011</code>: <strong>Master in Computer Science</strong>. Federal University of Amazonas, UFAM, Brazil. Thesis: Verification and Validation of Error in C Codes using Bounded Model Checker. Advisor: Prof. PhD. Raimundo da Silva Barreto</li>
   <li><code class="language-plaintext highlighter-rouge">2006 - 2008</code>: <strong>Undergraduate Degree in Technology of Analysis and Development Systems</strong>. Federal Institute of Education, Science and Technology of Roraima, IFRR, Brazil. Thesis: Development of Embedded Software for Control Orders of Restaurant using J2ME. Advisor: Prof. MSc. Pierre Viana Junior</li>
 </ul>
