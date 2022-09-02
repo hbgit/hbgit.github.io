@@ -10,7 +10,6 @@ Currently, I am a professor in the Departament of Computer Science at
 
 # `PERSONAL DATA`
 
-- Place and Date of Birth: Brazil – 25 February 1988  
 - Researcher from/at:
     - [Department of Computer Science of the Federal University of Roraima](https://prismrr.github.io/) (2015 to present)
     - National Science and Technology Institute for Critical Embedded Systems [INCT-SEC](http://www.inct-sec.icmc.usp.br/en/) (2011 to 2012)
