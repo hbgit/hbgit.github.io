@@ -1,0 +1,114 @@
+I") <h1 id="hello-i-am-herbert-oliveira-rocha">Hello, I am <code class="language-plaintext highlighter-rouge">Herbert Oliveira Rocha</code>.</h1>
+
+<p>Currently, I am a professor in the Departament of Computer Science at 
+<a href="http://ufrr.br/dcc">Federal University of Roraima</a>. My research focuses on the development of automated verification and software testing techniques for software systems. In particular, I am interested in the verification and testing of the critical embedded systems.</p>
+
+<h1 id="personal-data"><code class="language-plaintext highlighter-rouge">PERSONAL DATA</code></h1>
+
+<ul>
+  <li>Researcher from/at:
+    <ul>
+      <li><a href="https://prismrr.github.io/">Department of Computer Science of the Federal University of Roraima</a> (2015 to present)</li>
+      <li>National Science and Technology Institute for Critical Embedded Systems <a href="http://www.inct-sec.icmc.usp.br/en/">INCT-SEC</a> (2011 to 2012)</li>
+      <li><a href="http://icomp.ufam.edu.br/index.php?lang=en">Federal University of Amazonas</a> (2009 to 2015)</li>
+    </ul>
+  </li>
+  <li>Phone: +55 95 98400 5346</li>
+  <li>Email: herbert.rocha@ufrr.br</li>
+</ul>
+
+<h1 id="achievements"><code class="language-plaintext highlighter-rouge">ACHIEVEMENTS</code></h1>
+
+<table>
+  <tr>
+    <th><img src="/assets/achiviements/starstruck-default.png" width="100" /></th>
+    <th><img src="/assets/achiviements/starstruck-default.png" width="100" /></th>
+    <th><img src="/assets/achiviements/starstruck-default.png" width="100" /></th>
+  </tr>
+  <tr>
+    <th><b>Starstruck</b></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr>
+    <th><img src="/assets/achiviements/starstruck-default.png" width="100" /></th>
+    <th><img src="/assets/achiviements/starstruck-default.png" width="100" /></th>
+    <th><img src="/assets/achiviements/starstruck-default.png" width="100" /></th>
+  </tr>
+</table>
+
+<h1 id="education"><code class="language-plaintext highlighter-rouge">EDUCATION</code></h1>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">2011 - 2015</code>: <strong>Ph.D. in Computer Science</strong>. Federal University of Amazonas, UFAM, Brazil - Thesis: Verification of Software Systems based on Code Transformations using Bounded Model Checking. Advisor: Prof. PhD. Raimundo da Silva Barreto and Co-Advisor: Prof. PhD. Lucas Carvalho Cordeiro;</li>
+  <li><code class="language-plaintext highlighter-rouge">2009 - 2011</code>: <strong>Master in Computer Science</strong>. Federal University of Amazonas, UFAM, Brazil. Thesis: Verification and Validation of Error in C Codes using Bounded Model Checker. Advisor: Prof. PhD. Raimundo da Silva Barreto</li>
+  <li><code class="language-plaintext highlighter-rouge">2006 - 2008</code>: <strong>Undergraduate Degree in Technology of Analysis and Development Systems</strong>. Federal Institute of Education, Science and Technology of Roraima, IFRR, Brazil. Thesis: Development of Embedded Software for Control Orders of Restaurant using J2ME. Advisor: Prof. MSc. Pierre Viana Junior</li>
+</ul>
+
+<h1 id="certifications-and-awards"><code class="language-plaintext highlighter-rouge">CERTIFICATIONS AND AWARDS</code></h1>
+<ul>
+  <li><strong>Certified Tester Foundation Level – <a href="http://www.istqb.org/">CTFL</a></strong><br />
+International Software Testing Qualifications Board – ISTQB<br />
+CTFL ID: 12-CTFL-01897-BR. 2012.</li>
+  <li><strong>1st place in The Programming Marathon</strong><br />
+Federal Institute of Education, Science and Technology of RoraiUndergraduate Degree in Technology of Analysis and Development Systemsma, IFRR, Brazil. 2007.</li>
+</ul>
+
+<h1 id="literature-production"><code class="language-plaintext highlighter-rouge">LITERATURE PRODUCTION</code></h1>
+
+<ol>
+  <li>
+    <p>MENEZES, R. ; ROCHA, H. ; CORDEIRO, L. C. ; BARRETO, R. S. . <strong>Map2Check using LLVM and KLEE</strong>. In: 24th International Conference on Tools and Algorithms for the Construction and Analysis of Systems, 2018, Thessaloniki. TACAS’18, 2018. v. 10806.</p>
+  </li>
+  <li>
+    <p>ROCHA, W. ; ROCHA, H. ; ISMAIL, HUSSAMA ; CORDEIRO, LUCAS ; FISCHER, B. . <strong>DepthK: A k-Induction Verifier Based on Invariant Inference for C Programs</strong>. In: 23rd International Conference on Tools and Algorithms for the Construction and Analysis of Systems, 2017, Uppsala. 23rd International Conference on Tools and Algorithms for the Construction and Analysis of Systems, 2017.</p>
+  </li>
+  <li>
+    <p>ROCHA, H. O.; ISMAIL, HUSSAMA ; CORDEIRO, LUCAS ; Barreto . <strong>Model Checking Embedded C Software Using k-Induction and Invariants</strong>. In: Djones Lettnin, Markus Winterholer. (Org.). Embedded Software Verification and Debugging. 1ed.New York: Springer-Verlag, 2017, v. , p. 159-182.</p>
+  </li>
+  <li>
+    <p>ROCHA, H.; Cordeiro ; Barreto . <strong>Hunting Memory Bugs in C Programs with Map2Check (Competition Contribution)</strong>. In: 22nd International Conference on Tools and Algorithms for the Construction and Analysis of Systems, 2016, Eindhoven. European Joint Conferences on Theory and Practice of Software, ETAPS, 2016. v. 9636. p. 934-937.</p>
+  </li>
+  <li>
+    <p>BENTES, L. G. P ; ROCHA, H. ; BEZERRA, E. V. ; BARRETO, RAIMUNDO . <strong>JFORTES: Java FORmal unit TESt generation</strong>. In: VI Brazilian Symposium on Computing Systems Engineering, 2016, João Pessoa - Paraíba. VI Brazilian Symposium on Computing Systems Engineering. Porto Alegre - RS: SBC, 2016.</p>
+  </li>
+  <li>
+    <p>ROCHA, HERBERT; BARRETO, RAIMUNDO ; CORDEIRO, LUCAS . <strong>Memory Management Test-Case Generation of C Programs using Bounded Model Checking</strong>. In: 13th International Conference on Software Engineering and Formal Methods, 2015, York. Software Engineering and Formal Methods, 2015. v. 9276. p. 251-267.</p>
+  </li>
+  <li>
+    <p>ROCHA, HERBERT; ISMAIL, HUSSAMA ; CORDEIRO, LUCAS ; BARRETO, RAIMUNDO . <strong>Model Checking Embedded C Software Using k-Induction and Invariants</strong>. In: 2015 Brazilian Symposium on Computing Systems Engineering (SBESC), 2015, Foz do Iguacu. 2015 Brazilian Symposium on Computing Systems Engineering (SBESC), 2015. p. 90.</p>
+  </li>
+  <li>
+    <p>ROCHA, H. O.; Barreto . <strong>Corretude e Segurança de Sistemas Embarcados Críticos Usando Bounded Model Checkers</strong>. In: II Brazilian Conference on Critical Embedded Systems, 2012, Campinas. II Brazilian Conference on Critical Embedded Systems, 2012.</p>
+  </li>
+  <li>
+    <p>ROCHA, H. O.; Barreto ; Cordeiro ; DIAS NETO, A. C. . <strong>Understanding Programming Bugs in ANSI-C Software Using Bounded Model Checking Counter-Examples</strong>. In: 9th International Conference on Integrated Formal Methods, 2012, Pisa. Integrated Formal Methods, 2012. v. 7321/2. p. 128-142.</p>
+  </li>
+  <li>
+    <p>CUNHA, E. ; CUSTODIO, M. ; ROCHA, H. ; BARRETO, R. . <strong>Formal Verification of UML Sequence Diagrams in the Embedded Systems Context</strong>. In: 2011 Brazilian Symposium on Computing System Engineering (SBESC), 2011, Florianopolis. 2011 Brazilian Symposium on Computing System Engineering, 2011. p. 39-45.</p>
+  </li>
+  <li>
+    <p>ROCHA, H. O.; Cordeiro ; Barreto ; Netto . <strong>Exploiting Safety Properties in Bounded Model Checking for Test Cases Generation of C Programs</strong>. In: 4th Brazilian Workshop on Systematic and Automated Software Testing (SAST), 2010, Natal. Proceedings of IV Brazilian Workshop on Systematic and Automated Software Testing, 2010. p. 121-130.</p>
+  </li>
+  <li>
+    <p>ROCHA, H. O.; Jefferson Thomas de Oliveira ; Marcelo de Farias Matos ; Pierre da Costa Viana Júnior . <strong>Desenvolvimento de Software Embarcado para Controle de Pedidos de Pizzaria com J2ME</strong>. Norte Científico, v. 3, p. 8-22, 2008.</p>
+  </li>
+</ol>
+
+<h1 id="interests-in-computing"><code class="language-plaintext highlighter-rouge">INTERESTS IN COMPUTING</code></h1>
+
+<ul>
+  <li>Software Quality</li>
+  <li>Verification and Validation of Software</li>
+  <li>Testing Software</li>
+  <li>Model Checking</li>
+  <li>Embedded Systems</li>
+  <li>Operating Systems</li>
+  <li>Open-Source</li>
+  <li>Programming Languages</li>
+  <li>Regular Expressions</li>
+  <li>Web Systems, and</li>
+  <li>Design and Art</li>
+</ul>
+
+:ET

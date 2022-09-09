@@ -15,7 +15,30 @@ Currently, I am a professor in the Departament of Computer Science at
     - National Science and Technology Institute for Critical Embedded Systems [INCT-SEC](http://www.inct-sec.icmc.usp.br/en/) (2011 to 2012)
     - [Federal University of Amazonas](http://icomp.ufam.edu.br/index.php?lang=en) (2009 to 2015)
 - Phone: +55 95 98400 5346
-- Email: herbert.rocha@ufrr.br  
+- Email: herbert.rocha@ufrr.br 
+
+# `ACHIEVEMENTS`
+
+<table>
+  <tr>
+    <th><a href=""><img src="/assets/achiviements/sign-FL.png" width="100" /></a></th>
+    <th><a href="https://www.credential.net/081423e4-13fa-49f3-9953-337bec71589d"><img src="/assets/achiviements/docker.png" width="100" /></a></th>
+    <th><a href="https://github.com/users/hbgit/achievements/pull-shark"><img src="/assets/achiviements/starstruck-default.png" width="100" /></a></th>
+    <th><a href="https://github.com/users/hbgit/achievements/arctic-code-vault-contributor"><img src="/assets/achiviements/arctic-code-vault-contributor-default.png" width="100" /></a></th>
+    <th><a href="https://github.com/users/hbgit/achievements/pull-shark"><img src="/assets/achiviements/pull-shark-default.png" width="100" /></a></th>
+    <th><a href=""><img src="/assets/achiviements/ia_huawei.png" width="100" /></a></th>
+  </tr>
+  <tr>
+    <th style="text-align: center; vertical-align: middle;">CTFL</th>
+    <th style="text-align: center; vertical-align: middle;">Docker</th>
+    <th style="text-align: center; vertical-align: middle;">Starstruck</th>
+    <th style="width: 100px; text-align: center; vertical-align: middle;">Arctic Code Vault Contributor</th>
+    <th style="text-align: center; vertical-align: middle;">Pull Shark</th>
+    <th style="width: 100px; text-align: center; vertical-align: middle;">Huawei Certified ICT Associate-AI v3.0</th>
+  </tr>
+</table> 
+
+
 
 # `EDUCATION`
 
