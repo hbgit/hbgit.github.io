@@ -81,16 +81,16 @@ Federal Institute of Education, Science and Technology of Roraima, Undergraduate
 
 # `INTERESTS IN COMPUTING`
 
-- Software Quality 
-- Verification and Validation of Software
+- Verification and Validation of Software/Hardware
+- Automated Reasoning
 - Testing Software
-- Model Checking 
-- Embedded Systems 
+- Embedded Systems
+- Computer Vision 
 - Operating Systems 
-- Open-Source
 - Programming Languages
 - Regular Expressions
-- Web Systems, and 
+- Web Systems
+- Mobile Apps, and 
 - Design and Art
 
 [ufrrdcc]: http://ufrr.br/dcc
