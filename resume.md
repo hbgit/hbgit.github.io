@@ -51,7 +51,7 @@ Currently, I am a professor in the Departament of Computer Science at
 International Software Testing Qualifications Board – ISTQB  
 CTFL ID: 12-CTFL-01897-BR. 2012.
 - **1st place in The Programming Marathon**  
-Federal Institute of Education, Science and Technology of RoraiUndergraduate Degree in Technology of Analysis and Development Systemsma, IFRR, Brazil. 2007.
+Federal Institute of Education, Science and Technology of Roraima, Undergraduate Degree in Technology of Analysis and Development Systemsma, IFRR, Brazil. 2007.
 
 # `LITERATURE PRODUCTION`
 
